@@ -6,5 +6,14 @@ from abc import ABC, abstractmethod
 class StrategyClass(ABC):
 
     @abstractmethod
-    def execute(self):
-        print("Hello world from Strategy")
+    def setup(self, y_train, y_test, X_train_scaled, X_test_scaled):
+        pass
+
+    @abstractmethod
+    def run(self):
+        pass
+
+
+    @abstractmethod
+    def show_results(self):
+        pass

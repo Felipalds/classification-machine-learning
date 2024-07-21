@@ -1,6 +1,5 @@
 
 from knn_strategy import KNNStrategy
-from svm_strategy import SVMStrategy
 from strategy import StrategyClass
 
 
@@ -11,7 +10,5 @@ class MethodFactory:
     def create_method(self) -> StrategyClass:
         if self.method == "KNN":
             return KNNStrategy()
-        elif self.method == "SVM":
-            return SVMStrategy()
         else:
             raise ValueError("Method not found")

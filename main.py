@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from strategy import StrategyClass
 from factory import MethodFactory
 
-methods = ["KNN", "SVM"]
+methods = ["KNN"]
 
 def main():
 
@@ -31,7 +31,9 @@ def main():
     for method in methods:
         factory = MethodFactory(method)
         strategy = factory.create_method()
-        strategy.execute()
+        strategy.setup(y_train, y_test, X_train_scaled, X_test_scaled)
+        strategy.run()
+        strategy.show_results()
 
 
 if __name__ == "__main__":
