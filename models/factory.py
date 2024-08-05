@@ -1,6 +1,5 @@
-
-from knn_strategy import KNNStrategy
-from strategy import StrategyClass
+from .strategies import *
+from .strategy import StrategyClass
 
 
 class MethodFactory:
