@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 
 from models import MethodFactory
 
-methods = ["KNN"]
+methods = ["KNN", "MLP"]
 
 def main():
 

@@ -3,6 +3,8 @@
 # It is used to define a common interface for all the strategies
 from abc import ABC, abstractmethod
 
+from pandas.core.groupby.groupby import ArrayLike
+
 class StrategyClass(ABC):
 
     @abstractmethod
