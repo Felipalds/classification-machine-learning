@@ -3,8 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-from strategy import StrategyClass
-from factory import MethodFactory
+from models import MethodFactory
 
 methods = ["KNN"]
 
