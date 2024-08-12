@@ -1,7 +1,7 @@
 import sklearn.neural_network as nn
 from sklearn.metrics import accuracy_score
 
-from .strategy import StrategyClass
+from .strategy import StrategyClass, StrategyResults
 
 class MLPStrategy(StrategyClass):
 
@@ -35,3 +35,7 @@ class MLPStrategy(StrategyClass):
         print(f'Accuracy MLP: {self.acc_score * 100:.2f}%')
         print(f'Best MLP model: {self.best_model}')
         print(f'Best MLP y_pred: {self.best_y_pred}')
+
+
+    def get_results(self) -> StrategyResults:
+        return {"accuracy": self.acc_score}

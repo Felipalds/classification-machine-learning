@@ -2,8 +2,12 @@
 # This is an Abstract Base Class from Python
 # It is used to define a common interface for all the strategies
 from abc import ABC, abstractmethod
+from typing import TypedDict
 
-from pandas.core.groupby.groupby import ArrayLike
+from pandas import DataFrame
+
+class StrategyResults(TypedDict):
+    accuracy: float
 
 class StrategyClass(ABC):
 
@@ -18,4 +22,8 @@ class StrategyClass(ABC):
 
     @abstractmethod
     def show_results(self):
+        pass
+
+    @abstractmethod
+    def get_results(self) -> StrategyResults:
         pass

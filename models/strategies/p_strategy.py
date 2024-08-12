@@ -11,3 +11,6 @@ class P_Strategy(StrategyClass):
 
     def show_results(self):
         pass
+
+    def get_results(self) -> StrategyResults:
+        return super().get_results()

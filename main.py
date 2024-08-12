@@ -25,12 +25,15 @@ def main():
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    for method in METHODS_ENUM:
-        factory = MethodFactory(method)
-        strategy = factory.create_method()
-        strategy.setup(y_train, y_test, X_train_scaled, X_test_scaled)
-        strategy.run()
-        strategy.show_results()
+    for i in range(20):
+        for method in METHODS_ENUM:
+            factory = MethodFactory(method)
+            strategy = factory.create_method()
+            strategy.setup(y_train, y_test, X_train_scaled, X_test_scaled)
+            strategy.run()
+            strategy.show_results()
+            results = strategy.get_results()
+
 
 
 if __name__ == "__main__":

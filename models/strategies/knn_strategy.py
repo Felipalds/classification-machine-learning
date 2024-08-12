@@ -33,3 +33,6 @@ class KNNStrategy(StrategyClass):
         print(f'Accuracy KNN: {self.acc_score * 100:.2f}%')
         print(f'Best KNN model: {self.best_model}')
         print(f'Best KNN y_pred: {self.best_y_pred}')
+
+    def get_results(self) -> StrategyResults:
+        return super().get_results()
