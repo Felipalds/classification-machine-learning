@@ -1,7 +1,7 @@
 import sklearn.neural_network as nn
 from sklearn.metrics import accuracy_score
 
-from models.strategy import StrategyClass
+from .strategy import StrategyClass
 
 class MLPStrategy(StrategyClass):
 

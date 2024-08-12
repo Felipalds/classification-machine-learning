@@ -1,7 +1,4 @@
-from models.strategies.mlp_strategy import MLPStrategy
 from .strategies import *
-from .strategy import StrategyClass
-
 
 class MethodFactory:
     def __init__(self, method):

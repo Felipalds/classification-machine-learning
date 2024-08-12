@@ -1,5 +1,5 @@
 from sklearn.metrics import accuracy_score
-from ..strategy import StrategyClass
+from .strategy import StrategyClass
 from sklearn.neighbors import KNeighborsClassifier
 
 
