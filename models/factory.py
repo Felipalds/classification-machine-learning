@@ -1,16 +1,18 @@
-from models.strategies.mlp_strategy import MLPStrategy
+from typing import Literal
 from .strategies import *
-from .strategy import StrategyClass
+from enum import Enum
 
+class MethodEnum(Enum):
+    KNN = KNNStrategy()
+    MLP = MLPStrategy()
+    SVM = SVM_Strategy()
+    DT = DT_Strategy()
+    NB = NB_Strategy()
+    P = P_Strategy()
 
 class MethodFactory:
-    def __init__(self, method):
-        self.method = method
+    def __init__(self, method: MethodEnum):
+        self.method: MethodEnum = method
 
     def create_method(self) -> StrategyClass:
-        if self.method == "KNN":
-            return KNNStrategy()
-        elif self.method == "MLP":
-            return MLPStrategy()
-        else:
-            raise ValueError("Method not found")
+        return self.method.value
