@@ -25,13 +25,13 @@ def main():
         # The purpose of this standardization is to ensure that each feature contributes equally to the model's performance.
         # Standardizing the features can lead to improved performance for many machine learning algorithms.
         scaler = StandardScaler()
-        X_train_scaled = scaler.fit_transform(x_train)
-        X_test_scaled = scaler.transform(x_test)
+        x_train_scaled = scaler.fit_transform(x_train)
+        x_test_scaled = scaler.transform(x_test)
         for method in MethodEnum:
             factory = MethodFactory(method)
             strategy = factory.create_method()
-            strategy.setup(y_train, y_validation, X_train_scaled, X_test_scaled)
-            strategy.run(x_test)
+            strategy.setup(y_train, y_validation, x_train_scaled, x_test_scaled)
+            strategy.run(x_test, y_test)
             strategy.show_results()
             results = strategy.get_results()
 

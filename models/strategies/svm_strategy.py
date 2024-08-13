@@ -1,16 +1,16 @@
-from .strategy import StrategyClass
+from .strategy import StrategyClass, StrategyResults
 
 
 class SVM_Strategy(StrategyClass):
 
-    def setup(self, y_train, y_test, X_train_scaled, X_test_scaled):
-        pass
+    def setup(self, y_train, y_validation, X_train_scaled, X_validation_scaled):
+        return super().setup(y_train, y_validation, X_train_scaled, X_validation_scaled)
 
-    def run(self):
+    def run(self, x_test, y_test):
         pass
 
     def show_results(self):
         pass
 
-    def get_results(self) -> StrategyResults:
+    def get_results(self) -> StrategyResults | None:
         return super().get_results()
