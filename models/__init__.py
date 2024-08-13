@@ -1,1 +1,1 @@
-from .factory import MethodFactory, METHODS_ENUM
+from .factory import MethodFactory, MethodEnum

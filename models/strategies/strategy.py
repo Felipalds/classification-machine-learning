@@ -12,18 +12,17 @@ class StrategyResults(TypedDict):
 class StrategyClass(ABC):
 
     @abstractmethod
-    def setup(self, y_train, y_test, X_train_scaled, X_test_scaled):
+    def setup(self, y_train, y_validation, X_train_scaled, X_validation_scaled):
         pass
 
     @abstractmethod
-    def run(self):
+    def run(self, x_test, y_test):
         pass
-
 
     @abstractmethod
     def show_results(self):
         pass
 
     @abstractmethod
-    def get_results(self) -> StrategyResults:
+    def get_results(self) -> StrategyResults | None:
         pass
