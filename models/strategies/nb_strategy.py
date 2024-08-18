@@ -1,4 +1,4 @@
-from .strategy import StrategyClass
+from .strategy import StrategyClass, StrategyResults
 
 
 class NB_Strategy(StrategyClass):

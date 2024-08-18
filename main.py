@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+from analysis.analysis import Analysis
 from models import MethodFactory, MethodEnum
 
 def main():
@@ -13,7 +14,11 @@ def main():
     X = data.drop('Bankrupt?', axis=1)
     y = data['Bankrupt?']
 
-    for i in range(20):
+    analysis = Analysis(data)
+    analysis.intro()
+
+
+    for i in range(1):
         # Splitting the data into training and testing
         x_train, x_temp, y_train, y_temp = train_test_split(
             X, y, test_size=0.5)
