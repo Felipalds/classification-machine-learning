@@ -13,6 +13,12 @@ class StrategyClass(ABC):
 
     @abstractmethod
     def setup(self, y_train, y_validation, X_train_scaled, X_validation_scaled):
+        self.y_train = y_train
+        self.y_validation = y_validation
+        self.X_train_scaled = X_train_scaled
+        self.X_validation_scaled = X_validation_scaled
+        self.results: StrategyResults | None = None
+        self.best_model = None
         pass
 
     @abstractmethod

@@ -44,8 +44,8 @@
 
 | **Classifier** | **Parameters** |
 | --- | --- |
-| KNN | `n_neighbors` |
-| Decision Tree | `max_depth`, `min_samples_split`, `min_samples_leaf`|
+| KNN | `distance`, `n_neighbors` |
+| Decision Tree | `criterion`, `max_depth`, `min_samples_split`, `min_samples_leaf`|
 | Naive Bayes |  |
 | SVM | `C`, `kernel` |
 | MLP | `hidden_layer_sizes`, `activation`, `max_iter`, `learning_rate`|
