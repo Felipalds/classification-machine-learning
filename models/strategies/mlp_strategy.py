@@ -10,9 +10,9 @@ class MLPStrategy(StrategyClass):
 
 
     def run(self, x_test, y_test):
-        for hidden_layer_sizes in range(1, 21):
+        for hidden_layer_sizes in range(16, 16):
             for learning_rate in ('constant', 'invscaling', 'adaptive'):
-                for max_iter in (50, 100, 150, 300, 500, 1000):
+                for max_iter in (500, 1000):
                     for activation in ('identity', 'logistic', 'tanh', 'relu'):
                         model = nn.MLPClassifier(
                             hidden_layer_sizes=(hidden_layer_sizes, hidden_layer_sizes, 1),
@@ -23,15 +23,17 @@ class MLPStrategy(StrategyClass):
                         model.fit(self.X_train_scaled, self.y_train)
                         y_pred = model.predict(self.X_validation_scaled)
                         acc_score = accuracy_score(self.y_validation, y_pred)
+                        print(acc_score)
                         results = StrategyResults(accuracy=acc_score)
                         if self.results is None or acc_score > self.results["accuracy"]:
                             self.results = results
                             self.best_model = model
-                        if (self.best_model):
-                            y_pred = self.best_model.predict(x_test)
-                            acc_score = accuracy_score(y_test, y_pred)
-                            results = StrategyResults(accuracy=acc_score)
-                            self.results = results
+
+                    if (self.best_model):
+                        y_pred = self.best_model.predict(x_test)
+                        acc_score = accuracy_score(y_test, y_pred)
+                        results = StrategyResults(accuracy=acc_score)
+                        self.results = results
 
     def test(self, x_test):
         if (self.best_model):

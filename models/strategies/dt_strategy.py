@@ -10,7 +10,7 @@ class DT_Strategy(StrategyClass):
     def run(self, x_test, y_test):
         for criterion in ("gini", "entropy"):
             for max_depth in range (1, 21):
-                for min_samples_leaf in range (1, 21):
+                for min_samples_leaf in range (2, 21):
                     for min_samples_split in range (2, 21):
                         model = DT(criterion=criterion ,max_depth=max_depth, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_leaf)
                         model.fit(self.X_train_scaled, self.y_train)

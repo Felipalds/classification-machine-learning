@@ -11,14 +11,15 @@ class KNNStrategy(StrategyClass):
 
     def run(self, x_test, y_test):
         for i in range(1, 21):
-            model = KNeighborsClassifier(n_neighbors=i)
-            model.fit(self.X_train_scaled, self.y_train)
-            y_pred = model.predict(self.X_validation_scaled)
-            acc_score = accuracy_score(self.y_validation, y_pred)
-            results = StrategyResults(accuracy=acc_score)
-            if self.results is None or acc_score > self.results["accuracy"]:
-                self.results = results
-            self.best_model = model
+            for metric in ("euclidean", "manhattan", "cosine", "minkowski"):
+                model = KNeighborsClassifier(n_neighbors=i, metric=metric)
+                model.fit(self.X_train_scaled, self.y_train)
+                y_pred = model.predict(self.X_validation_scaled)
+                acc_score = accuracy_score(self.y_validation, y_pred)
+                results = StrategyResults(accuracy=acc_score)
+                if self.results is None or acc_score > self.results["accuracy"]:
+                    self.results = results
+                self.best_model = model
 
     def show_results(self):
         if (self.results):
