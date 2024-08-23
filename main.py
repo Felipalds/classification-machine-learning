@@ -11,17 +11,38 @@ from models import MethodFactory, MethodEnum
 def main():
 
     data = pd.read_csv("./data.csv")
+    data = data.drop(columns=[" Revenue per person",
+    " Operating profit per person",
+    " Allocation rate per person",
+    " Average Collection Days",
+    " Net Value Per Share (B)",
+    " Net Value Per Share (A)",
+    " Net Value Per Share (C)",
+    " Persistent EPS in the Last Four Seasons",
+    " Realized Sales Gross Profit Growth Rate",
+    " Total Asset Turnover",
+    " Inventory and accounts receivable/Net value",
+    " Fixed Assets Turnover Frequency",
+    " Net Worth Turnover Rate (times)",
+    " Quick Asset Turnover Rate",
+    " Current Asset Turnover Rate",
+    " Working capitcal Turnover Rate",
+    " Cash Turnover Rate",
+    " Total Asset Return Growth Rate Ratio",
+    " Cash flow rate",
+    " Operating Expense Rate"])
 
-    print(len(data.index))
+
+    print(f"Columns: {len(data.columns)} Rows: {len(data.index)}")
 
     bankrupts = data.loc[data['Bankrupt?'] == 1]
 
     # Oversampling
-    # for i in range(15):
-    #     for index, row in bankrupts.iterrows():
-    #         data.loc[len(data.index)] = row.tolist()
+    for i in range(12):
+        for index, row in bankrupts.iterrows():
+            data.loc[len(data.index)] = row.tolist()
 
-    print(len(data.index))
+    print(f"Columns: {len(data.columns)} Rows: {len(data.index)}")
 
     # Separation of data to trainig and testing
     X = data.drop('Bankrupt?', axis=1)
