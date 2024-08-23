@@ -9,13 +9,14 @@ class MLPStrategy(StrategyClass):
         super().setup(y_train, y_validation, X_train_scaled, X_validation_scaled)
 
 
-    def run(self, x_test, y_test):
-        for hidden_layer_sizes in range(16, 16):
+    def run(self):
+        for hidden_layer_sizes in range(1, 2):
+            print(f"MLP: {hidden_layer_sizes}")
             for learning_rate in ('constant', 'invscaling', 'adaptive'):
-                for max_iter in (500, 1000):
+                for max_iter in (1, 2):
                     for activation in ('identity', 'logistic', 'tanh', 'relu'):
                         model = nn.MLPClassifier(
-                            hidden_layer_sizes=(hidden_layer_sizes, hidden_layer_sizes, 1),
+                            hidden_layer_sizes=(hidden_layer_sizes*20, hidden_layer_sizes, 1),
                             learning_rate=learning_rate,
                             max_iter=max_iter,
                             activation=activation
@@ -25,15 +26,10 @@ class MLPStrategy(StrategyClass):
                         acc_score = accuracy_score(self.y_validation, y_pred)
                         print(acc_score)
                         results = StrategyResults(accuracy=acc_score)
+                        self.results_array.append(results)
                         if self.results is None or acc_score > self.results["accuracy"]:
                             self.results = results
                             self.best_model = model
-
-                    if (self.best_model):
-                        y_pred = self.best_model.predict(x_test)
-                        acc_score = accuracy_score(y_test, y_pred)
-                        results = StrategyResults(accuracy=acc_score)
-                        self.results = results
 
     def test(self, x_test):
         if (self.best_model):
@@ -43,7 +39,3 @@ class MLPStrategy(StrategyClass):
         if (self.results):
             print(f'Accuracy MLP: {self.results["accuracy"] * 100:.2f}%')
             print(f'Best MLP model: {self.best_model}')
-
-
-    def get_results(self) -> StrategyResults | None:
-        return self.results

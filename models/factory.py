@@ -1,6 +1,5 @@
 from typing import Literal
 
-from models.strategies.perc_strategy import Perc_Strategy
 from .strategies import *
 from enum import Enum
 
@@ -10,7 +9,6 @@ class MethodEnum(Enum):
     SVM = SVM_Strategy()
     DT = DT_Strategy()
     NB = NB_Strategy()
-    Perc = Perc_Strategy()
 
 class MethodFactory:
     def __init__(self, method: MethodEnum):
