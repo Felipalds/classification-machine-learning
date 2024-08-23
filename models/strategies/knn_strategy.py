@@ -20,7 +20,7 @@ class KNNStrategy(StrategyClass):
                 self.results_array.append(results)
                 if self.results is None or acc_score > self.results["accuracy"]:
                     self.results = results
-                self.best_model = model
+                    self.best_model = model
 
     def show_results(self):
         if (self.results):
