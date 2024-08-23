@@ -13,7 +13,6 @@ class DT_Strategy(StrategyClass):
             for max_depth in range (1, 6):
                 for min_samples_leaf in range (2, 6):
                     for min_samples_split in range (2, 6):
-                        print(f"{criterion} {max_depth} {min_samples_leaf} {min_samples_split}")
                         model = DT(criterion=criterion ,max_depth=max_depth, min_samples_leaf=min_samples_leaf, min_samples_split=min_samples_leaf)
                         model.fit(self.X_train_scaled, self.y_train)
                         y_pred = model.predict(self.X_validation_scaled)

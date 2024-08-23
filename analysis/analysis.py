@@ -16,7 +16,7 @@ class Analysis:
         self.best_results: Dict[MethodEnum, float | None] | None = None
         self.models_results: Dict[MethodEnum, list[float]] | None = None
 
-    def analyze(self, iterations_amount: int = 2) -> None:
+    def analyze(self, iterations_amount: int = 1) -> None:
         df_initializer: Dict = {}
         self.best_results = {method: None for method in MethodEnum}
         self.best_models = {method: None for method in MethodEnum}

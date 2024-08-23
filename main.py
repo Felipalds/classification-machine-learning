@@ -17,9 +17,9 @@ def main():
     bankrupts = data.loc[data['Bankrupt?'] == 1]
 
     # Oversampling
-    for i in range(15):
-        for index, row in bankrupts.iterrows():
-            data.loc[len(data.index)] = row.tolist()
+    # for i in range(15):
+    #     for index, row in bankrupts.iterrows():
+    #         data.loc[len(data.index)] = row.tolist()
 
     print(len(data.index))
 
