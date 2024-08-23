@@ -61,6 +61,20 @@ class Analysis:
         df.loc["Standard Deviation"] = stdevs
         df.to_csv("summary.csv")
 
+
+        # Multiplos classifiers
+        # for c in range (0, 20) :
+            # self.bestmodels
+            # (sum)
+            # (majority)
+            # (bordas)
+            #
+            #
+
+    # Testes estatísticos
+    #   Múltiplos
+    #   normais
+
     def intro(self):
         print("Welcome to the analysis module!")
 

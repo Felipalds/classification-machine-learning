@@ -22,7 +22,6 @@ def main():
             data.loc[len(data.index)] = row.tolist()
 
     print(len(data.index))
-    exit()
 
     # Separation of data to trainig and testing
     X = data.drop('Bankrupt?', axis=1)
