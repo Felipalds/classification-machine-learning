@@ -1,3 +1,4 @@
+import itertools
 from typing import Any, Dict
 from pandas import DataFrame
 from sklearn.base import BaseEstimator, ClassifierMixin
@@ -21,7 +22,7 @@ class Analysis:
         self.best_results: Dict[MethodEnum, float | None] | None = None
         self.models_results: Dict[MethodEnum, list[float]] | None = None
 
-    def analyze(self, iterations_amount: int = 2) -> None:
+    def analyze(self, iterations_amount: int = 20) -> None:
         df_initializer: Dict = {}
         self.best_results = {method: None for method in MethodEnum}
         self.best_models = {method: None for method in MethodEnum}
@@ -76,15 +77,22 @@ class Analysis:
             x_temp, y_temp, test_size=0.5
         )
 
-        kruskal(*[self.best_results[model] for model in self.best_results])
+        kruskal_results = kruskal(*[self.best_results[model] for model in self.best_results])
+        print("Kruskal: ", kruskal_results) # FAZER COM A MÉDIA DAS ACURÁCIAS!!
 
+        if kruskal_results.pvalue < 0.05:
+            all_whitney_pairs = itertools.combinations(self.best_models.keys(), 2)
 
-            # # # 1. Regra da Soma usando VotingClassifier com 'soft' voting
+            for pair in all_whitney_pairs: # MESMA COISA, USAR MÉDIAS
+                whitney = mannwhitneyu(self.best_results[pair[0]], self.best_results[pair[1]], method='exact', alternative='two-sided')
+                print(f"{pair[0].name} vs {pair[1].name}: {whitney}")
+
+            # # # # 1. Regra da Soma usando VotingClassifier com 'soft' voting
             # sum_rule = VotingClassifier(estimators=models, voting='soft')
             # sum_rule.fit(x_train, y_train)
             # sum_rule_pred = sum_rule.predict(x_test)
 
-            # # 2. Majority Vote usando VotingClassifier com 'hard' voting
+            # # # 2. Majority Vote usando VotingClassifier com 'hard' voting
             # majority_vote = VotingClassifier(estimators=models, voting='hard')
             # majority_vote.fit(x_train, y_train)
             # majority_vote_pred = majority_vote.predict(x_test)

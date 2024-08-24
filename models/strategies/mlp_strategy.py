@@ -10,10 +10,10 @@ class MLPStrategy(StrategyClass):
 
 
     def run(self):
-        for hidden_layer_sizes in range(1, 2):
+        for hidden_layer_sizes in range(1, 2): # 3?
             print(f"MLP: {hidden_layer_sizes}")
             for learning_rate in ('constant', 'invscaling', 'adaptive'):
-                for max_iter in (100, 200):
+                for max_iter in (100, 200): # 200 400
                     for activation in ('identity', 'logistic', 'tanh', 'relu'):
                         model = nn.MLPClassifier(
                             hidden_layer_sizes=(hidden_layer_sizes*72, hidden_layer_sizes, 1),
