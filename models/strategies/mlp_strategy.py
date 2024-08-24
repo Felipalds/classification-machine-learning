@@ -16,7 +16,7 @@ class MLPStrategy(StrategyClass):
                 for max_iter in (100, 200):
                     for activation in ('identity', 'logistic', 'tanh', 'relu'):
                         model = nn.MLPClassifier(
-                            hidden_layer_sizes=(hidden_layer_sizes*20, hidden_layer_sizes, 1),
+                            hidden_layer_sizes=(hidden_layer_sizes*72, hidden_layer_sizes, 1),
                             learning_rate=learning_rate,
                             max_iter=max_iter,
                             activation=activation

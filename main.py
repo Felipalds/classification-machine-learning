@@ -32,6 +32,12 @@ def main():
     " Cash flow rate",
     " Operating Expense Rate"])
 
+    X = data.drop('Bankrupt?', axis=1)
+    y = data['Bankrupt?']
+
+    plt.hist(y, 2)
+    plt.title("Normal Sample")
+    plt.show()
 
     print(f"Columns: {len(data.columns)} Rows: {len(data.index)}")
 
@@ -48,6 +54,8 @@ def main():
     X = data.drop('Bankrupt?', axis=1)
     y = data['Bankrupt?']
 
+    plt.hist(y, 2)
+    plt.title("Oversampled")
     plt.show()
 
     analysis = Analysis(X, y)

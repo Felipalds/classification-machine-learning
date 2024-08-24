@@ -21,7 +21,7 @@ class Analysis:
         self.best_results: Dict[MethodEnum, float | None] | None = None
         self.models_results: Dict[MethodEnum, list[float]] | None = None
 
-    def analyze(self, iterations_amount: int = 1) -> None:
+    def analyze(self, iterations_amount: int = 2) -> None:
         df_initializer: Dict = {}
         self.best_results = {method: None for method in MethodEnum}
         self.best_models = {method: None for method in MethodEnum}
@@ -54,56 +54,66 @@ class Analysis:
             for key in list(self.models_results.keys()):
                 print(len(self.models_results[key]))
 
-            df_initializer.update(self.models_results)
-            df = DataFrame(df_initializer)
-            indexes = [f"Results {i}" for i in range(iterations_amount)]
-            df.set_index([indexes,])
-            mean_accuracies = []
-            stdevs = []
-            for key in list(self.models_results.keys()):
-                mean_accuracies.append(df[key].mean())
-                stdevs.append(df[key].std())
-            df.loc["Mean Accuracy"] = mean_accuracies
-            df.loc["Standard Deviation"] = stdevs
-            df.to_csv(f"summary-{i}.csv")
+        df_initializer.update(self.models_results)
+        df = DataFrame(df_initializer)
+        indexes = [f"Results {i}" for i in range(iterations_amount)]
+        df.set_index([indexes,])
+        mean_accuracies = []
+        stdevs = []
+        for key in list(self.models_results.keys()):
+            mean_accuracies.append(df[key].mean())
+            stdevs.append(df[key].std())
+        df.loc["Mean Accuracy"] = mean_accuracies
+        df.loc["Standard Deviation"] = stdevs
+        df.to_csv(f"summary.csv")
 
-            models = [(model.name, self.best_models[model]) for model in self.best_models.keys()]
+        models = [(model.name, self.best_models[model]) for model in self.best_models.keys()]
 
-            # 1. Regra da Soma usando VotingClassifier com 'soft' voting
-            sum_rule = VotingClassifier(estimators=models, voting='soft')
-            sum_rule.fit(x_train, y_train)
-            sum_rule_pred = sum_rule.predict(x_test)
+        x_train, x_temp, y_train, y_temp = train_test_split(
+            self.X, self.y, test_size=0.5)
 
-            # 2. Majority Vote usando VotingClassifier com 'hard' voting
-            majority_vote = VotingClassifier(estimators=models, voting='hard')
-            majority_vote.fit(x_train, y_train)
-            majority_vote_pred = majority_vote.predict(x_test)
+        x_validation, x_test, y_validation, y_test = train_test_split(
+            x_temp, y_temp, test_size=0.5
+        )
 
-            # 3. Borda Count customizado
-            class BordaCountClassifier(BaseEstimator, ClassifierMixin):
-                def __init__(self, estimators):
-                    self.estimators = estimators
+        kruskal(*[self.best_results[model] for model in self.best_results])
 
-                def fit(self, X, y):
-                    for name, estimator in self.estimators:
-                        estimator.fit(X, y)
-                    return self
 
-                def predict(self, X):
-                    probas = np.asarray([est.predict_proba(X) for _, est in self.estimators])
-                    rankings = np.argsort(np.argsort(probas, axis=2), axis=2)
-                    borda_scores = np.sum(rankings, axis=0)
-                    return np.argmax(borda_scores, axis=1)
+            # # # 1. Regra da Soma usando VotingClassifier com 'soft' voting
+            # sum_rule = VotingClassifier(estimators=models, voting='soft')
+            # sum_rule.fit(x_train, y_train)
+            # sum_rule_pred = sum_rule.predict(x_test)
 
-            # Instanciar o Borda Count
-            borda_count = BordaCountClassifier(estimators=models)
-            borda_count.fit(x_train, y_train)
-            borda_count_pred = borda_count.predict(x_test)
+            # # 2. Majority Vote usando VotingClassifier com 'hard' voting
+            # majority_vote = VotingClassifier(estimators=models, voting='hard')
+            # majority_vote.fit(x_train, y_train)
+            # majority_vote_pred = majority_vote.predict(x_test)
 
-            # Avaliar as regras de combinação
-            print("Accuracy using Sum Rule:", accuracy_score(y_test, sum_rule_pred))
-            print("Accuracy using Majority Vote:", accuracy_score(y_test, majority_vote_pred))
-            print("Accuracy using Borda Count:", accuracy_score(y_test, borda_count_pred))
+            # # 3. Borda Count customizado
+            # class BordaCountClassifier(BaseEstimator, ClassifierMixin):
+            #     def __init__(self, estimators):
+            #         self.estimators = estimators
+
+            #     def fit(self, X, y):
+            #         for name, estimator in self.estimators:
+            #             estimator.fit(X, y)
+            #         return self
+
+            #     def predict(self, X):
+            #         probas = np.asarray([est.predict_proba(X) for _, est in self.estimators])
+            #         rankings = np.argsort(np.argsort(probas, axis=2), axis=2)
+            #         borda_scores = np.sum(rankings, axis=0)
+            #         return np.argmax(borda_scores, axis=1)
+
+            # # Instanciar o Borda Count
+            # borda_count = BordaCountClassifier(estimators=models)
+            # borda_count.fit(x_train, y_train)
+            # borda_count_pred = borda_count.predict(x_test)
+
+            # # Avaliar as regras de combinação
+            # print("Accuracy using Sum Rule:", accuracy_score(y_test, sum_rule_pred))
+            # print("Accuracy using Majority Vote:", accuracy_score(y_test, majority_vote_pred))
+            # print("Accuracy using Borda Count:", accuracy_score(y_test, borda_count_pred))
 
         # Multiplos classifiers
         # for c in range (0, 20) :
