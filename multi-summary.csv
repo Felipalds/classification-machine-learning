@@ -1,0 +1,5 @@
+,MultiModels.SUM,MultiModels.MAJORITY,MultiModels.BORDA_COUNT
+0,86.89,86.89,82.07
+1,78.69,78.69,77.63
+Mean Accuracy,82.79,82.79,79.85
+Standard Deviation,5.8,5.8,3.14
