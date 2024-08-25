@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 from sklearn.metrics import accuracy_score
 from .strategy import StrategyClass, StrategyResults
 from sklearn.neighbors import KNeighborsClassifier

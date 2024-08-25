@@ -11,7 +11,7 @@ class SVM_Strategy(StrategyClass):
     def run(self):
         for kernel in ("linear", "rbf", "poly", "sigmoid"):
             for C in range(10, 20):
-                model = SVC(kernel=kernel, C=C)
+                model = SVC(kernel=kernel, C=C, probability=True)
                 model.fit(self.X_train_scaled, self.y_train)
                 y_pred = model.predict(self.X_validation_scaled)
                 acc_score = accuracy_score(self.y_validation, y_pred)

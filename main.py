@@ -42,6 +42,9 @@ def main():
     print(f"Columns: {len(data.columns)} Rows: {len(data.index)}")
 
     bankrupts = data.loc[data['Bankrupt?'] == 1]
+    non_bankrupts = data.loc[data['Bankrupt?'] == 0]
+
+    print(f"Original Bankrupts: {len(bankrupts.index)} Original Non-Bankrupts: {len(non_bankrupts.index)}")
 
     # Oversampling
     for i in range(12):
@@ -53,6 +56,11 @@ def main():
     # Separation of data to trainig and testing
     X = data.drop('Bankrupt?', axis=1)
     y = data['Bankrupt?']
+
+    bankrupts = data.loc[data['Bankrupt?'] == 1]
+    non_bankrupts = data.loc[data['Bankrupt?'] == 0]
+
+    print(f"Original Bankrupts: {len(bankrupts.index)} Original Non-Bankrupts: {len(non_bankrupts.index)}")
 
     plt.hist(y, 2)
     plt.title("Oversampled")

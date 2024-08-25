@@ -1,3 +1,6 @@
+import warnings
+from sklearn.exceptions import ConvergenceWarning
+warnings.filterwarnings("ignore", category=ConvergenceWarning)
 import sklearn.neural_network as nn
 from sklearn.metrics import accuracy_score
 
@@ -11,7 +14,6 @@ class MLPStrategy(StrategyClass):
 
     def run(self):
         for hidden_layer_sizes in range(1, 2): # 3?
-            print(f"MLP: {hidden_layer_sizes}")
             for learning_rate in ('constant', 'invscaling', 'adaptive'):
                 for max_iter in (100, 200): # 200 400
                     for activation in ('identity', 'logistic', 'tanh', 'relu'):
@@ -24,7 +26,6 @@ class MLPStrategy(StrategyClass):
                         model.fit(self.X_train_scaled, self.y_train)
                         y_pred = model.predict(self.X_validation_scaled)
                         acc_score = accuracy_score(self.y_validation, y_pred)
-                        print(acc_score)
                         results = StrategyResults(accuracy=acc_score)
                         self.results_array.append(results)
                         if self.results is None or acc_score > self.results["accuracy"]:
